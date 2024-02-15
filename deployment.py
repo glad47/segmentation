@@ -25,10 +25,8 @@ import SimpleITK as sitk
 import glob
 from myutil.util import enumerateWithEstimate
 from collections import namedtuple
-import pywavefront
 import uuid
 import datetime
-import pyvista as pv
 from PIL import Image
 import shutil
 import random
@@ -158,10 +156,12 @@ class Server:
         return segmentation_model
     
     def getObject(self, name):
+        print("getting object")
         response = self.minio_client.get_object(self.cli_args.backet_name, name)
         # read the data from the response object
+        
         data = response.read()
-
+        print("done getting the object")
         # close the response object
         response.close()
         # create a BytesIO object from the data
